@@ -3,45 +3,774 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jason Astorga Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Jason — Computer Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #F5F0E8;
+      --bg-card:   #EDE8DF;
+      --bg-dark:   #1C1A17;
+      --ink:       #1C1A17;
+      --ink-mid:   #4A4540;
+      --ink-faint: #9A948C;
+      --accent:    #C4622D;
+      --accent2:   #3D6B5E;
+      --rule:      #D8D2C8;
+      --serif:     'DM Serif Display', Georgia, serif;
+      --sans:      'DM Sans', system-ui, sans-serif;
+      --mono:      'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 60px;
+      background: rgba(245, 240, 232, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── SECTIONS ── */
+    section { padding: 7rem 2.5rem; max-width: 900px; margin: 0 auto; }
+    section + section { border-top: 1px solid var(--rule); }
+
+    /* ── HERO ── */
+    #hero {
+      padding-top: 10rem;
+      padding-bottom: 6rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--ink-mid);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+    .hero-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.73rem;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      color: var(--ink-mid);
+      background: var(--bg-card);
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 2px;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--rule); }
+    .btn-ghost:hover { border-color: var(--ink); }
+
+    /* ── SECTION HEADERS ── */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.73rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--ink-mid);
+      margin-bottom: 1rem;
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .skills-list {
+      display: flex; flex-direction: column; gap: 1.2rem;
+    }
+    .skill-group-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 0.4rem;
+    }
+    .skill-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-chip {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 0.25rem 0.6rem;
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      color: var(--ink-mid);
+    }
+
+    /* ── PROJECTS ── */
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .project-header {
+      padding: 2rem 2rem 0;
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .project-number {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 3.5rem;
+      color: var(--rule);
+      line-height: 1;
+      user-select: none;
+    }
+    .project-status {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+    }
+    .status-active { background: #D4EDDA; color: #2D6A3F; }
+    .status-planned { background: #D6EAF8; color: #1A5276; }
+
+    .project-body { padding: 1rem 2rem 2rem; }
+    .project-title {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.3rem;
+    }
+    .project-subtitle {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .project-tabs {
+      display: flex; gap: 0; margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tab-btn {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.1rem;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      color: var(--ink-faint);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tab-btn.active {
+      color: var(--ink);
+      border-bottom-color: var(--accent);
+    }
+    .tab-btn:hover:not(.active) { color: var(--ink-mid); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .tab-panel p {
+      color: var(--ink-mid);
+      font-weight: 300;
+      line-height: 1.75;
+      margin-bottom: 0.8rem;
+    }
+    .tab-panel p:last-child { margin-bottom: 0; }
+
+    .project-stack {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      margin-top: 1.5rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ── PERSONAL ── */
+    .journal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+    .journal-entry {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 1.4rem;
+    }
+    .entry-type {
+      font-family: var(--mono);
+      font-size: 0.67rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 0.5rem;
+    }
+    .entry-title {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+    .entry-body {
+      font-size: 0.88rem;
+      color: var(--ink-mid);
+      font-weight: 300;
+      line-height: 1.65;
+    }
+    .entry-date {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--ink-faint);
+      margin-top: 0.8rem;
+    }
+
+    /* ── CONTACT ── */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-blurb {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+    .contact-links { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+    .contact-links li a {
+      display: flex; align-items: center; gap: 0.75rem;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .contact-links li a:hover { color: var(--accent); }
+    .contact-links .link-icon {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      min-width: 60px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: 900px; margin: 0 auto;
+    }
+    .footer-sig {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--ink-faint);
+    }
+    .footer-mono {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── DIVIDER ── */
+    .ornament {
+      text-align: center;
+      color: var(--rule);
+      font-size: 1.2rem;
+      letter-spacing: 0.5rem;
+      margin: -1rem 0 2rem;
+      user-select: none;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+      section { padding: 5rem 1.4rem; }
+      #hero { padding: 8rem 1.4rem 4rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .project-header { flex-direction: column; gap: 0.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
 </head>
-<body class="bg-white text-gray-900">
+<body>
 
-  <div class="p-6 space-y-10 max-w-4xl mx-auto">
-    <header class="text-center space-y-2">
-      <h1 class="text-4xl font-bold">Jason Astorga</h1>
-      <p class="text-lg text-gray-600">Aspiring Electrical Engineer | Builder | Problem Solver</p>
-    </header>
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Jason R.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#personal">Personal</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-    <section id="about" class="space-y-4">
-      <h2 class="text-2xl font-semibold">About Me</h2>
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-eyebrow">Computer Engineer · Maker · Chicago, IL</p>
+  <h1 class="hero-name">Building things<br>that <em>matter</em><br>to me.</h1>
+  <p class="hero-sub">
+    B.S. Computer Engineering, UIC '23. Currently at Grayhill Inc. as an Electronic Assembler — 
+    bridging hands-on hardware work with a drive toward embedded systems and consumer electronics.
+  </p>
+  <div class="hero-tags">
+    <span class="tag">Embedded Systems</span>
+    <span class="tag">Arduino / C++</span>
+    <span class="tag">SPI · UART · I2C</span>
+    <span class="tag">Soldering & PCB</span>
+    <span class="tag">ESD Protocols</span>
+    <span class="tag">Circuit Analysis</span>
+    <span class="tag">Physical Media Nerd</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">See My Work</a>
+    <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">Background</p>
+  <h2 class="section-title">Who I am &amp; what I do</h2>
+  <div class="about-grid">
+    <div class="about-text fade-up">
       <p>
-        Looking to build my foundational engineering skills. I love hands-on projects that make me think, learn, and grow. I also enjoy finding creative outlets and tending to my houseplants.
+        I graduated from the University of Illinois Chicago in May 2023 with a B.S. in Computer Engineering.
+        Right now I work at Grayhill Inc. as an Electronic Assembler — reading engineering drawings, 
+        soldering fine-pitch components, running quality inspections, and living inside ESD best practices every day.
       </p>
-    </section>
-
-    <section id="projects" class="space-y-4">
-      <h2 class="text-2xl font-semibold">Projects</h2>
-      <div class="grid md:grid-cols-2 gap-4">
-        <div class="border rounded-lg p-4 space-y-2 shadow-md">
-          <h3 class="text-xl font-bold">LED Traffic Light System</h3>
-          <p>(Currently in the works)A basic microcontroller project simulating a real traffic light. Used to familiarize myself with arduinos.</p>
-          <a href="#" class="inline-block px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 text-sm">
-            View Project
-          </a>
-        </div>
-        <div class="border rounded-lg p-4 space-y-2 shadow-md">
-          <h3 class="text-xl font-bold">2nd Project Here</h3>
-          <p>What should I do next?.</p>
-          <a href="#" class="inline-block px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 text-sm">
-            View Project
-          </a>
+      <p>
+        It's hands-on work that most engineers never get — and I treat it as a foundation, not a detour.
+        I'm working toward an engineering-level role, and I'm building the portfolio to back it up.
+      </p>
+      <p>
+        My interests sit at the intersection of embedded hardware and things that carry cultural weight:
+        music, physical objects, the tactile experience of owning something real. That collision is what drives 
+        most of my personal projects.
+      </p>
+    </div>
+    <div class="skills-list fade-up">
+      <div>
+        <p class="skill-group-label">Hardware &amp; Protocols</p>
+        <div class="skill-chips">
+          <span class="skill-chip">Arduino / AVR</span>
+          <span class="skill-chip">SPI</span>
+          <span class="skill-chip">UART</span>
+          <span class="skill-chip">I²C</span>
+          <span class="skill-chip">Soldering</span>
+          <span class="skill-chip">Oscilloscope</span>
+          <span class="skill-chip">ESD Handling</span>
         </div>
       </div>
-    </section>
+      <div>
+        <p class="skill-group-label">Software</p>
+        <div class="skill-chips">
+          <span class="skill-chip">C / C++</span>
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">Arduino IDE</span>
+          <span class="skill-chip">Git</span>
+        </div>
+      </div>
+      <div>
+        <p class="skill-group-label">Professional</p>
+        <div class="skill-chips">
+          <span class="skill-chip">Engineering Drawing Comprehension</span>
+          <span class="skill-chip">Quality Control</span>
+          <span class="skill-chip">Assembly Documentation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Work</p>
+  <h2 class="section-title">Projects</h2>
+
+  <!-- NFC Music Player -->
+  <div class="project-card fade-up">
+    <div class="project-header">
+      <span class="project-number">01</span>
+      <span class="project-status status-active">In Progress</span>
+    </div>
+    <div class="project-body">
+      <h3 class="project-title">NFC Music Player</h3>
+      <p class="project-subtitle">Embedded Systems · Physical Media · Arduino</p>
+
+      <div class="project-tabs">
+        <button class="tab-btn active" onclick="switchTab(this, 'nfc-why')">Why</button>
+        <button class="tab-btn" onclick="switchTab(this, 'nfc-what')">What It Does</button>
+        <button class="tab-btn" onclick="switchTab(this, 'nfc-how')">How It's Built</button>
+        <button class="tab-btn" onclick="switchTab(this, 'nfc-next')">What's Next</button>
+      </div>
+
+      <div id="nfc-why" class="tab-panel active">
+        <p>
+          I grew up browsing the aisles of Sam Goody and FYE — picking up a CD, reading the liner notes, 
+          feeling the weight of the physical thing before you'd ever heard a single track. That ritual mattered.
+          Streaming killed it, and I've never fully made peace with that.
+        </p>
+        <p>
+          This project is my attempt to rebuild that tactile experience in a modern, personal way. 
+          The idea: tap an NFC sticker to a reader and your music starts playing — no screen, no scrolling, 
+          no algorithm. Just the physical act of choosing, and then the music.
+        </p>
+        <p>
+          It's also a deliberate deep-dive into embedded systems — every component chosen to force me to 
+          learn real hardware communication protocols from scratch.
+        </p>
+      </div>
+
+      <div id="nfc-what" class="tab-panel">
+        <p>
+          Each NFC sticker tag (MIFARE Classic 1K) is associated with an album or playlist stored on 
+          a MicroSD card. Tapping the tag triggers the MFRC522 reader, which communicates the tag's UID 
+          via SPI to an Elegoo Uno R3. The Uno maps that UID to an audio file and sends playback commands 
+          over UART to a DFPlayer Mini, which drives a connected speaker.
+        </p>
+        <p>
+          The result: a completely offline, screen-free music player where the physical sticker 
+          <em>is</em> the interface. Stick them to album art prints, custom cards, or wherever feels right.
+        </p>
+      </div>
+
+      <div id="nfc-how" class="tab-panel">
+        <p>
+          Following a component-by-component testing strategy — each piece verified in isolation before 
+          integration. Currently: MFRC522 wired via SPI (MOSI, MISO, SCK, SS, RST), confirmed 3.3V 
+          logic compatibility with the Uno's 5V system.
+        </p>
+        <p>
+          Key technical considerations addressed: SPI pin mapping on the Uno R3, logic-level 
+          voltage safety (MFRC522 is 3.3V; direct connection to Uno's 3.3V pin is viable for most setups),
+          and UART wiring on the DFPlayer Mini with a 1kΩ current-limiting resistor on TX.
+        </p>
+      </div>
+
+      <div id="nfc-next" class="tab-panel">
+        <p>
+          <strong>Immediate:</strong> Complete MFRC522 SPI verification, then integrate DFPlayer Mini 
+          and test end-to-end NFC → audio playback. Build a clean enclosure — thinking wood and brushed 
+          aluminum to lean into the physical-object aesthetic.
+        </p>
+        <p>
+          <strong>Future features:</strong> A companion app (or web UI) to re-assign stickers without 
+          re-flashing firmware. Support for multiple sticker "modes" (album, playlist, podcast). 
+          Eventually: an LED visual layer that responds to the music — tying this into a larger 
+          audiovisual installation concept I'm developing.
+        </p>
+      </div>
+
+      <div class="project-stack">
+        <span class="tag">Elegoo Uno R3</span>
+        <span class="tag">MFRC522</span>
+        <span class="tag">DFPlayer Mini</span>
+        <span class="tag">MIFARE Classic 1K</span>
+        <span class="tag">SPI</span>
+        <span class="tag">UART</span>
+        <span class="tag">C++</span>
+        <span class="tag">MicroSD</span>
+      </div>
+    </div>
   </div>
 
+  <!-- Placeholder for future project -->
+  <div class="project-card fade-up" style="opacity: 0.6;">
+    <div class="project-header">
+      <span class="project-number">02</span>
+      <span class="project-status status-planned">Planned</span>
+    </div>
+    <div class="project-body">
+      <h3 class="project-title">LED Art Installation</h3>
+      <p class="project-subtitle">Generative Art · Embedded Systems · Room-Scale</p>
+      <div class="project-tabs">
+        <button class="tab-btn active" onclick="switchTab(this, 'led-concept')">Concept</button>
+      </div>
+      <div id="led-concept" class="tab-panel active">
+        <p>
+          Inspired by large-scale public works like Leviathan's 150 Media Stream in Chicago — 
+          a room-scale LED installation driven by personal aesthetic sensibilities rather than a client brief. 
+          The long-term vision is connecting this with the NFC Music Player: tap a sticker, 
+          your music plays, and the room responds visually. Sound and light as one unified experience.
+        </p>
+        <p>
+          Currently in the concept and research phase. More details to follow as the NFC project matures.
+        </p>
+      </div>
+      <div class="project-stack">
+        <span class="tag">LED Strips / Matrices</span>
+        <span class="tag">Generative Patterns</span>
+        <span class="tag">Arduino / ESP32</span>
+        <span class="tag">Audio Reactive</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAL -->
+<section id="personal">
+  <p class="section-label">Outside the Work</p>
+  <h2 class="section-title">Personal</h2>
+  <p style="color: var(--ink-mid); font-weight: 300; margin-bottom: 2rem; font-size: 0.95rem;">
+    A few snapshots of what's on my mind when I'm not debugging a circuit.
+  </p>
+
+  <div class="journal-grid">
+    <div class="journal-entry fade-up">
+      <p class="entry-type">🎵 Listening</p>
+      <h4 class="entry-title">Back on a jazz kick</h4>
+      <p class="entry-body">
+        Been spending a lot of time with Miles Davis's <em>Kind of Blue</em> lately. 
+        There's something about modal jazz that maps weirdly well to how I think about 
+        system design — loose constraints, a lot of room to move within a structure.
+      </p>
+      <p class="entry-date">Spring 2025</p>
+    </div>
+
+    <div class="journal-entry fade-up">
+      <p class="entry-type">💡 Idea</p>
+      <h4 class="entry-title">The NFC sticker as album art</h4>
+      <p class="entry-body">
+        What if the sticker wasn't hidden — what if it was the art? 
+        Thinking about designing printable album-art cards with the NFC tag embedded, 
+        like a modern equivalent of owning the physical record. Something you could 
+        actually display on a shelf.
+      </p>
+      <p class="entry-date">Spring 2025</p>
+    </div>
+
+    <div class="journal-entry fade-up">
+      <p class="entry-type">🏙️ Life</p>
+      <h4 class="entry-title">Chicago keeps giving</h4>
+      <p class="entry-body">
+        Went back to see 150 Media Stream again. Every time I look at it I leave with 
+        three new ideas. There's something about art that exists at city scale — 
+        it demands that you be present for it. Can't stream that experience.
+      </p>
+      <p class="entry-date">2025</p>
+    </div>
+
+    <div class="journal-entry fade-up">
+      <p class="entry-type">🔧 Process</p>
+      <h4 class="entry-title">Why I test component by component</h4>
+      <p class="entry-body">
+        Learned the hard way: wiring everything at once and hoping it works is a 
+        recipe for spending three hours staring at a blank serial monitor. 
+        Slow is smooth. Smooth is fast.
+      </p>
+      <p class="entry-date">2025</p>
+    </div>
+
+    <div class="journal-entry fade-up">
+      <p class="entry-type">🎵 Listening</p>
+      <h4 class="entry-title">What I miss about physical stores</h4>
+      <p class="entry-body">
+        Sam Goody. FYE. The smell of a new CD case. Buying something you'd never 
+        heard just because the cover was interesting. Discovery that cost something — 
+        that felt like it meant something. That's what I'm trying to put back 
+        into the act of listening.
+      </p>
+      <p class="entry-date">Ongoing</p>
+    </div>
+
+    <div class="journal-entry fade-up">
+      <p class="entry-type">💡 Idea</p>
+      <h4 class="entry-title">Room-scale + music = unified experience</h4>
+      <p class="entry-body">
+        The LED installation and the NFC player are the same project, eventually. 
+        Tap a sticker — your music plays AND the room changes. 
+        Album-specific lighting. Mood as architecture.
+      </p>
+      <p class="entry-date">2025</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Let's Talk</p>
+  <h2 class="section-title">Get in touch</h2>
+  <div class="contact-layout">
+    <div class="fade-up">
+      <p class="contact-blurb">
+        I'm actively looking for opportunities in embedded systems, consumer electronics, 
+        and hardware-adjacent engineering roles. If you're working on something interesting, 
+        or just want to talk shop about NFC, jazz, or LED art — reach out.
+      </p>
+      <a href="mailto:your@email.com" class="btn btn-primary">Send an Email</a>
+    </div>
+    <div class="fade-up">
+      <ul class="contact-links">
+        <li>
+          <a href="mailto:your@email.com">
+            <span class="link-icon">Email</span>
+            your@email.com
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/yourusername" target="_blank" rel="noopener">
+            <span class="link-icon">GitHub</span>
+            github.com/yourusername
+          </a>
+        </li>
+        <li>
+          <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">
+            <span class="link-icon">LinkedIn</span>
+            linkedin.com/in/yourusername
+          </a>
+        </li>
+        <li>
+          <a href="/resume.pdf" target="_blank">
+            <span class="link-icon">Resume</span>
+            Download PDF
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-sig">Jason R. — Chicago, IL</span>
+  <span class="footer-mono">Computer Engineer · Maker</span>
+</footer>
+
+<script>
+  // Tab switching
+  function switchTab(btn, panelId) {
+    const card = btn.closest('.project-card');
+    card.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    card.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(panelId).classList.add('active');
+  }
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
-
